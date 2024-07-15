@@ -1,0 +1,18 @@
+name: Metrics
+on:
+  # Run at 23:00 everyday
+  schedule: [{cron: "0 23 * * *"}]
+  workflow_dispatch:
+  push: {branches: ["main", "metrics"]}
+jobs:
+  github-metrics:
+    runs-on: ubuntu-latest
+    environment: 
+      name: main
+    permissions:
+      contents: write
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          plugin_languages: true
